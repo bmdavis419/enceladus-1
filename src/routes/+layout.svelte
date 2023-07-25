@@ -9,7 +9,7 @@
 
 <div class="font-mono min-h-screen flex flex-col">
 	<header class="flex justify-between items-center py-6 px-12">
-		<h2 class="text-4xl font-bold tracking-wide">Enceladus-1</h2>
+		<a class="text-4xl font-bold tracking-wide" href="/">Enceladus-1</a>
 		<a href="/login" class="text-lg tracking-tighter border-2 border-black p-1">Login or Signup</a>
 	</header>
 

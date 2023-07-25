@@ -32,6 +32,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@supabase/auth-helpers-sveltekit": "^0.10.1",
 		"@supabase/supabase-js": "^2.29.0",
 		"drizzle-orm": "^0.27.2",
 		"postgres": "^3.3.5"
