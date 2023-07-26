@@ -1,5 +1,22 @@
 <script>
 	import homeBanner from '$lib/assets/home.jpeg';
+
+	export let data;
+
+	let { supabase } = data;
+
+	async function signInWithGitHub() {
+		await supabase.auth.signInWithOAuth({
+			provider: 'github',
+			options: {
+				redirectTo: '/JAJA'
+			}
+		});
+	}
+
+	async function logout() {
+		await supabase.auth.signOut();
+	}
 </script>
 
 <div class="w-full flex justify-between px-24 items-center grow">
@@ -16,4 +33,11 @@
 		</div>
 	</div>
 	<img alt="The Moon Enceladus" src={homeBanner} class="w-[500px] h-[500px]" />
+</div>
+
+<div>
+	<button on:click={signInWithGitHub}>GITHUB LAND</button>
+</div>
+<div>
+	<button on:click={logout}>LOGOUT LAND</button>
 </div>
