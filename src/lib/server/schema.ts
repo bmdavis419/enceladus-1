@@ -1,11 +1,12 @@
-import { integer, text, pgTable, serial, varchar, timestamp } from 'drizzle-orm/pg-core';
+import { integer, text, pgTable, uuid, serial, varchar, timestamp } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 export const profileTable = pgTable('profile', {
 	id: serial('id').primaryKey(),
 	last_name: varchar('last_name', { length: 100 }),
 	first_name: varchar('first_name', { length: 100 }),
-	email: varchar('email', { length: 100 })
+	email: varchar('email', { length: 100 }),
+	user_id: uuid('user_id').notNull()
 });
 
 export const profileTableRelations = relations(profileTable, ({ many }) => ({
