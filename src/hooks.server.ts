@@ -8,6 +8,14 @@ export const handle = async ({ event, resolve }) => {
 		event
 	});
 
+	const supabaseServer = createSupabaseServerClient({
+		supabaseUrl: PUBLIC_SUPABASE_URL,
+		supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
+		event
+	});
+
+	event.locals.supabase = supabaseServer;
+
 	/**
 	 * a little helper that is written for convenience so that instead
 	 * of calling `const { data: { session } } = await supabase.auth.getSession()`
@@ -16,7 +24,7 @@ export const handle = async ({ event, resolve }) => {
 	event.locals.getSession = async () => {
 		const {
 			data: { session }
-		} = await event.locals.supabase.auth.getSession();
+		} = await supabaseServer.auth.getSession();
 		return session;
 	};
 

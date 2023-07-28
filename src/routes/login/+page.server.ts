@@ -1,30 +1,10 @@
-export const actions = {
-	login: async (event) => {
-		// TODO log the user in
-	},
-	signup: async (event) => {
-		// get the form body from the event
-		const formData = await event.request.formData();
-		const firstName = formData.get('first_name');
-		const lastName = formData.get('last_name');
-		const email = formData.get('email');
-		const password = formData.get('password');
+import { redirect } from '@sveltejs/kit';
 
-		// TODO: validate user inputs server side
+export const load = async (event) => {
+	const session = await event.locals.getSession();
 
-		// create the account in supabase
-		const { data, error } = await event.locals.supabase.auth.signUp({
-			email,
-			password
-			// options: {
-			// 	emailRedirectTo: `${event.url.origin}/auth/callback`
-			// }
-		});
-
-		console.log(data);
-
-		console.log('error', error);
-
-		console.log(firstName, lastName, email, password);
+	if (session) {
+		throw redirect(301, '/profile');
 	}
+	return {};
 };
