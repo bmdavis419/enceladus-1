@@ -30,3 +30,9 @@ alter table
 
 alter table
     image enable row level security;
+
+-- CREATE THE STORAGE BUCKET
+insert into
+    storage.buckets (id, name)
+values
+    ('generated_images', 'Generated Images');
