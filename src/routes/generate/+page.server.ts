@@ -51,16 +51,29 @@ export const actions = {
 			throw error(500, 'Open AI error...');
 		}
 
-		// TODO: download the image into the bucket
+		// get the image blob
+		const extResp = await fetch(resBody.data[0].url);
+		const imageBlob = await extResp.blob();
 
-		// const nGroupId = await db.insert(imageGroupTable).values({
-		// 	owner_id: profile[0].id
-		// }).returning({insertedId: imageGroupTable.id})
+		// save the blob to supabase storage
+		const imageId = crypto.randomUUID();
+		const imagePath = `${profile[0].id}/${imageId}`;
+		const file = new File([imageBlob], imageId, { type: imageBlob.type });
+		await event.locals.supabase.storage.from('generated_images').upload(imagePath, file);
 
-		// await db.insert(imageTable).values({
+		// save to the actual database
+		const nGroupId = await db
+			.insert(imageGroupTable)
+			.values({
+				owner_id: profile[0].id
+			})
+			.returning({ insertedId: imageGroupTable.id });
+		await db.insert(imageTable).values({
+			value: imagePath,
+			query: prompt?.toString() || '',
+			group_id: nGroupId[0].insertedId
+		});
 
-		// })
-
-		throw redirect(300, resBody.data[0].url);
+		throw redirect(300, `detail/${nGroupId[0].insertedId}`);
 	}
 };

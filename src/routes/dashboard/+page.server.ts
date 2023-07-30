@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db.js';
-import { profileTable } from '$lib/server/schema.js';
+import { imageGroupTable, profileTable } from '$lib/server/schema.js';
 import { redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 
@@ -19,7 +19,14 @@ export const load = async (event) => {
 		throw redirect(301, '/profile');
 	}
 
+	// get the image groups for this profile
+	const groups = await db
+		.select()
+		.from(imageGroupTable)
+		.where(eq(imageGroupTable.owner_id, profile[0].id));
+
 	return {
-		profile
+		profile: profile[0],
+		groups
 	};
 };

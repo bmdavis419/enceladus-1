@@ -33,7 +33,7 @@ export const imageTable = pgTable('image', {
 	inserted_at: timestamp('inserted_at'),
 	updated_at: timestamp('updated_at'),
 	value: text('value'),
-	query: text('value'),
+	query: text('query'),
 	group_id: integer('group_id')
 });
 

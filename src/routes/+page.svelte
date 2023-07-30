@@ -12,7 +12,7 @@
 		</h3>
 		<h5 class="font-light">This is literally just a DALL-E wrapper...</h5>
 		<div>
-			<a href="/login" class="mt-2 border border-black p-2">Get Started</a>
+			<a href="/dashboard" class="mt-2 border border-black p-2">Get Started</a>
 		</div>
 	</div>
 	<img alt="The Moon Enceladus" src={homeBanner} class="w-[500px] h-[500px]" />
