@@ -7,7 +7,7 @@
 		await supabase.auth.signInWithOAuth({
 			provider: 'github',
 			options: {
-				redirectTo: '/profile'
+				redirectTo: 'https://enceladus-1.vercel.app'
 			}
 		});
 	}
