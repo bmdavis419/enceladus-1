@@ -44,8 +44,6 @@ export const actions = {
 			}[];
 		};
 
-		console.log(resBody);
-
 		// save the images
 		if (resBody.data.length === 0) {
 			throw error(500, 'Open AI error...');
