@@ -1,6 +1,5 @@
 <script>
 	import homeBanner from '$lib/assets/home.jpeg';
-	export let data;
 </script>
 
 <div class="w-full flex justify-between px-24 items-center grow">
