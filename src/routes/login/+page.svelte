@@ -5,10 +5,7 @@
 
 	async function signInWithGitHub() {
 		await supabase.auth.signInWithOAuth({
-			provider: 'github',
-			options: {
-				redirectTo: 'https://enceladus-1.vercel.app'
-			}
+			provider: 'github'
 		});
 	}
 </script>
