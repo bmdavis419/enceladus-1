@@ -1,5 +1,4 @@
-import { db } from '$lib/server/db.js';
-import { profileTable } from '$lib/server/schema.js';
+import prisma from '$lib/server/prisma.js';
 import { error, redirect } from '@sveltejs/kit';
 
 export const actions = {
@@ -17,11 +16,13 @@ export const actions = {
 		if (!session) {
 			throw error(401, 'Must have be logged in to create an account');
 		}
-		await db.insert(profileTable).values({
-			user_id: session.user.id,
-			first_name: firstName.toString(),
-			last_name: lastName.toString(),
-			email: session.user.email
+		await prisma.profile.create({
+			data: {
+				user_id: session.user.id,
+				first_name: firstName.toString(),
+				last_name: lastName.toString(),
+				email: session.user.email
+			}
 		});
 
 		throw redirect(301, '/dashboard');

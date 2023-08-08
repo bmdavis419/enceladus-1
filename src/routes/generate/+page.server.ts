@@ -1,8 +1,6 @@
 import { OPENAI_KEY } from '$env/static/private';
-import { db } from '$lib/server/db.js';
-import { imageGroupTable, imageTable, profileTable } from '$lib/server/schema.js';
+import prisma from '$lib/server/prisma.js';
 import { error, redirect } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
 
 export const actions = {
 	new: async (event) => {
@@ -11,11 +9,12 @@ export const actions = {
 			throw redirect(301, '/login');
 		}
 
-		const profile = await db
-			.select()
-			.from(profileTable)
-			.where(eq(profileTable.user_id, session.user.id));
-		if (profile.length === 0) {
+		const profile = await prisma.profile.findFirst({
+			where: {
+				user_id: session.user.id
+			}
+		});
+		if (!profile) {
 			throw redirect(301, '/profile');
 		}
 
@@ -55,23 +54,24 @@ export const actions = {
 
 		// save the blob to supabase storage
 		const imageId = crypto.randomUUID();
-		const imagePath = `${profile[0].id}/${imageId}`;
+		const imagePath = `${profile.id}/${imageId}`;
 		const file = new File([imageBlob], imageId, { type: imageBlob.type });
 		await event.locals.supabase.storage.from('generated_images').upload(imagePath, file);
 
 		// save to the actual database
-		const nGroupId = await db
-			.insert(imageGroupTable)
-			.values({
-				owner_id: profile[0].id
-			})
-			.returning({ insertedId: imageGroupTable.id });
-		await db.insert(imageTable).values({
-			value: imagePath,
-			query: prompt?.toString() || '',
-			group_id: nGroupId[0].insertedId
+		const nGroup = await prisma.image_group.create({
+			data: {
+				owner_id: profile.id
+			}
+		});
+		await prisma.image.create({
+			data: {
+				value: imagePath,
+				query: prompt?.toString() || '',
+				group_id: nGroup.id
+			}
 		});
 
-		throw redirect(300, `detail/${nGroupId[0].insertedId}`);
+		throw redirect(300, `detail/${nGroup.id}`);
 	}
 };
