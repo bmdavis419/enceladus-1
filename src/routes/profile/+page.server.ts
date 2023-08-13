@@ -1,6 +1,7 @@
 import prisma from '$lib/server/prisma.js';
 import { error, redirect } from '@sveltejs/kit';
 
+// TODO: set it so that on load the user will be redirected if they have the wrong auth state
 export const actions = {
 	create: async (event) => {
 		// get the form body from the event

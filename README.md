@@ -1,38 +1,23 @@
-# create-svelte
+### enceladus-1
+*SvelteKit + Supabase Example App*
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+NOTE: There are pieces missing here and unprotected routes, this is for demonstration purposes only.
 
-## Creating a project
+#### what you need to run this app
+- [Node.js](https://nodejs.org/en/download/)
+- [Supabase](https://supabase.io/docs/guides/with-sveltekit)
+- [Supabase CLI](https://supabase.com/docs/guides/cli)
+- [pnpm (not required, but recommended)](https://pnpm.io/installation)
+- [Docker (for supabase)](https://docs.docker.com/get-docker/)
+- [OpenAI API Key](https://platform.openai.com/docs/quickstart)
+- [Github Social Login](https://supabase.com/docs/guides/auth/social-login/auth-github)
 
-If you're seeing this, you've probably already done this step. Congrats!
+#### how to run this app
+1. Clone this repo
+2. Run `pnpm install` to install dependencies
+3. Fill in the `.env` file with your credentials (follow the example)
+4. Start the supabase instance with `supabase start`
+5. Run `pnpm dev` to start the app
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+#### need help?
+- [Join the Discord](https://discord.gg/q2eARhxwMV)
