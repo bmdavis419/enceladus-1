@@ -7,7 +7,7 @@ export const load = async (event) => {
 	const session = await event.locals.getSession();
 
 	if (!session) {
-		throw redirect(301, '/login');
+		redirect(301, '/login');
 	}
 
 	// check for profile
@@ -16,7 +16,7 @@ export const load = async (event) => {
 		.from(profileTable)
 		.where(eq(profileTable.user_id, session.user.id));
 	if (profile.length === 0) {
-		throw redirect(301, '/profile');
+		redirect(301, '/profile');
 	}
 
 	// get the image groups for this profile

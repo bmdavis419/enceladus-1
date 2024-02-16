@@ -12,7 +12,7 @@ export const load = async (event) => {
 	});
 
 	if (!group) {
-		throw error(404, 'Image group not found!');
+		error(404, 'Image group not found!');
 	}
 
 	const imageUrls: {
@@ -26,6 +26,7 @@ export const load = async (event) => {
 		const publicUrl = await event.locals.supabase.storage
 			.from('generated_images')
 			.createSignedUrl(image.value || '', 60000);
+			console.log(publicUrl.error)
 		if (!publicUrl.error) {
 			imageUrls.push({
 				query: image.query || '',
@@ -34,6 +35,7 @@ export const load = async (event) => {
 			});
 		}
 	}
+
 
 	return { group, imageUrls };
 };

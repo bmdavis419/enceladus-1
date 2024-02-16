@@ -1,5 +1,7 @@
 <script lang="ts">
 	export let data;
+
+	console.log(data.imageUrls);
 </script>
 
 <div class="grow w-full flex justify-center items-center bg-neutral-100">

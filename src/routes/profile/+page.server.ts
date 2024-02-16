@@ -9,13 +9,13 @@ export const actions = {
 		const firstName = formData.get('first_name');
 		const lastName = formData.get('last_name');
 		if (!firstName || !lastName) {
-			throw error(400, 'Must send a valid first name and last name');
+			error(400, 'Must send a valid first name and last name');
 		}
 
 		// create the user
 		const session = await event.locals.getSession();
 		if (!session) {
-			throw error(401, 'Must have be logged in to create an account');
+			error(401, 'Must have be logged in to create an account');
 		}
 		await db.insert(profileTable).values({
 			user_id: session.user.id,
@@ -24,6 +24,6 @@ export const actions = {
 			email: session.user.email
 		});
 
-		throw redirect(301, '/dashboard');
+		redirect(301, '/dashboard');
 	}
 };

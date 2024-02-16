@@ -8,7 +8,7 @@ export const actions = {
 	new: async (event) => {
 		const session = await event.locals.getSession();
 		if (!session) {
-			throw redirect(301, '/login');
+			redirect(301, '/login');
 		}
 
 		const profile = await db
@@ -16,7 +16,7 @@ export const actions = {
 			.from(profileTable)
 			.where(eq(profileTable.user_id, session.user.id));
 		if (profile.length === 0) {
-			throw redirect(301, '/profile');
+			redirect(301, '/profile');
 		}
 
 		// call the open AI endpoint and generate the image
@@ -46,7 +46,7 @@ export const actions = {
 
 		// save the images
 		if (resBody.data.length === 0) {
-			throw error(500, 'Open AI error...');
+			error(500, 'Open AI error...');
 		}
 
 		// get the image blob
@@ -72,6 +72,6 @@ export const actions = {
 			group_id: nGroupId[0].insertedId
 		});
 
-		throw redirect(300, `detail/${nGroupId[0].insertedId}`);
+		redirect(300, `detail/${nGroupId[0].insertedId}`);
 	}
 };
